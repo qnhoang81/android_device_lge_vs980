@@ -14,20 +14,25 @@
 # limitations under the License.
 
 # Inherit APNs list
-$(call inherit-product, vendor/omni/config/cdma.mk)
+$(call inherit-product, vendor/mahdi/configs/cdma.mk)
 
-# Inherit from the common Open Source product configuration
-$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
-
-# Inherit from our custom product configuration
-$(call inherit-product, vendor/omni/config/common.mk)
+# Inherit some common stuff.
+$(call inherit-product, vendor/mahdi/configs/common.mk)
+$(call inherit-product, vendor/mahdi/configs/common_full_phone.mk)
 
 # Inherit from hardware-specific part of the product configuration
-$(call inherit-product, device/lge/vs980/device.mk)
+$(call inherit-product, device/lge/vs980/full_vs980.mk)
 
 # Discard inherited values and use our own instead.
-PRODUCT_NAME := omni_vs980
+PRODUCT_NAME := mahdi_vs980
 PRODUCT_DEVICE := vs980
 PRODUCT_BRAND := lge
 PRODUCT_MANUFACTURER := lge
 PRODUCT_MODEL := LG-VS980
+
+# Enable Torch
+PRODUCT_PACKAGES += Torch
+
+# Copy device specific prebuilt files.
+PRODUCT_COPY_FILES += \
+    vendor/mahdi/prebuilt/bootanimations/BOOTANIMATION-1080x1920.zip:system/media/bootanimation.zip
